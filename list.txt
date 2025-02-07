@@ -1,0 +1,9 @@
+3333, linear, francisco, senior
+1111, lin, frank, freshman
+8888, biden, joe, senior
+6543, trump, donald, junior
+7777, obama, michelle, freshman
+666, bush, george sr., junior
+4444, obama, barack, senior
+5555, bush, george, junior
+222, linux, fran, freshman
