@@ -46,8 +46,6 @@ void updateStudent(string id, string ln, string fn, string gl){
     grade == gl;
 }
 
-//sequential search
-
 };
 
 

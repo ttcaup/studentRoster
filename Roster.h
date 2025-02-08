@@ -13,13 +13,13 @@ class Roster {
     public:
         
         int findStudent(string id){
-        for (size_t i=0; i < roster.size(); i++){
-            if(roster[i].getID() == id){
-                return i;
+            for (size_t i=0; i < roster.size(); i++){
+                if(roster[i].getID() == id){
+                    return i;
+                }
+                return -1;
             }
-            return -1;
         }
-    }
         //add an student object
         void addStudent(string id, string ln, string fn, string g){
             roster.push_back(Student(id, ln, fn, g));
@@ -40,7 +40,7 @@ class Roster {
         }
     
         //display object (find the object, then print it)
-        //vector<Student> searchStudent{
+        vector<Student> searchStudent{
             
-        //}
+        }
 };
