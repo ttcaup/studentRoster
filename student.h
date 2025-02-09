@@ -29,13 +29,13 @@ public:
 string getID() const {
     return ID;
 };
-string getlastName() {
+string getlastName() const {
     return lastName;
 };
-string getfirstName() {
+string getfirstName() const {
     return firstName;
 };
-string getgrade() {
+string getgrade() const {
     return grade;
 };
 

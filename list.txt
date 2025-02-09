@@ -1,20 +1,10 @@
-3333, linear, francisco, senior
+3333  linear  francisco  senior
+1111 lin  frank  freshman
+8888  biden  joe  senior
+6543  trump  donald  junior
+7777  obama  michelle  freshman
+666 bush tina junior
+4444 obama barack senior
+5555 bush george junior
+222 linux fran freshman
 
-1111, lin, frank, freshman
-8888, biden, joe, senior
-6543, trump, donald, junior
-7777, obama, michelle, freshman
-666, bush, george sr., junior
-4444, obama, barack, senior
-5555, bush, george, junior
-222, linux, fran, freshman
-
-    /*Student fransisco("3333", "linear", "francisco", "senior");
-    Student frank("1111", "lin", "frank", "freshman");
-    Student joe("8888", "biden", "joe", "senior");
-    Student don("6543", "trump", "donald", "junior");
-    Student mich("7777", "obama", "michelle", "freshman");
-    Student geo("666", "bush", "george sr.", "junior");
-    Student barak("4444", "obama", "barack", "senior");
-    Student geosr("5555", "bush", "george", "junior");
-    Student fran("222", "linux", "fran", "freshman");*/
