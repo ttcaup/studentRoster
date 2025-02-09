@@ -9,5 +9,23 @@ using namespace std;
 
 int main(){
 
-    //something.loadFromFile("list.txt"); 
+    Roster roster("list.txt");
+    
+
+    roster.addStudent("3333", "linear", "francisco", "senior");
+    roster.addStudent("1111", "lin", "frank", "freshman");
+
+    
+
+
+   
+
+    
+
+
+    
+
+
+
+    
 }
