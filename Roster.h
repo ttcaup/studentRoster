@@ -1,3 +1,7 @@
+//roster.h
+#ifndef ROSTER_H
+#define ROSTER_H
+
 #include "student.h"
 #include <iostream>
 #include <istream>
@@ -22,14 +26,15 @@ private:
             {
                 return i;
             }
-            return -1;
+        
         }
+        return -1;
     }
 
     // read txt file into vector of student objects
     // how to make each line into object??
     // while loop that loops until no lines left
-    //,whitespace seperate each parameter of student object
+    // whitespace seperate each parameter of student object
 
     void readRosterFromFile(string fileName)
     {
@@ -98,11 +103,11 @@ public:
             // update txt file
             updateFile(); 
 
-            cout << "Student with ID " << idnum << " removed.\n";
+            cout << "Student with ID " << idnum << " is removed.\n";
         }
         else
         {
-            cout << "Student not found" << endl;
+            cout << "Student not found." << endl;
         }
     }
 
@@ -112,9 +117,9 @@ public:
         int index = findStudent(idnum);
         if (index != -1)
         {
-            cout << roster[index].getID() 
-            << roster[index].getfirstName() 
-            << roster[index].getlastName() 
+            cout << roster[index].getID() << " "
+            << roster[index].getfirstName() << " "
+            << roster[index].getlastName() << " "
             << roster[index].getgrade() << endl;
         }
         else
@@ -123,3 +128,5 @@ public:
         }
     }
 };
+
+#endif 

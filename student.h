@@ -1,9 +1,12 @@
-// student class
+//student.h
+
 // 3333, linear, francisco, senior
 //ID, lastName, firstName, grade
 
 //function to include :
 // update: ID, lastName, firstName, grade
+#ifndef STUDENT_H
+#define STUDENT_H
 
 #include <iostream>
 #include <string>
@@ -39,16 +42,9 @@ string getgrade() const {
     return grade;
 };
 
-void updateStudent(string id, string ln, string fn, string gl){
-    ID == id;
-    lastName == ln;
-    firstName == fn;
-    grade == gl;
-}
-
-
-
 };
+
+#endif
 
 
 
