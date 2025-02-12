@@ -124,7 +124,7 @@ public:
         }
         else
         {
-            cout << "Student not found" << endl;
+            cout << "Student not found, sorry!" << endl;
         }
     }
 };
