@@ -8,7 +8,6 @@
 #include <fstream>
 #include <sstream>
 #include <string>
-#include <vector>
 
 using namespace std;
 
@@ -17,10 +16,25 @@ class Roster
 
 private:
     string fileName;
-    vector<Student> roster;
+    Student* roster;
+    size_t size;
+    size_t capacity;
+    
+    void resize()
+    {
+        capacity *= 2;
+        Student* newRoster = new Student[capacity];
+        for (size_t i = 0; i < size; i++)
+        {
+            newRoster[i] = roster[i];
+        }
+        delete[] roster;
+        roster = newRoster;
+    }
+
     int findStudent(string id)
     {
-        for (size_t i = 0; i < roster.size(); i++)
+        for (size_t i = 0; i < size; i++)
         {
             if (roster[i].getID() == id)
             {
@@ -31,10 +45,6 @@ private:
         return -1;
     }
 
-    // read txt file into vector of student objects
-    // how to make each line into object??
-    // while loop that loops until no lines left
-    // whitespace seperate each parameter of student object
 
     void readRosterFromFile(string fileName)
     {
@@ -49,10 +59,13 @@ private:
         string line;
         while (getline(file, line))
         {
+            if (size == capacity){
+                resize();
+            }
             stringstream ss(line);     // treats the string 'line' as a stream
             string id, ln, fn, g;      // extracts attributes from line
             ss >> id >> ln >> fn >> g; // splits line into 4 'variables' (space-separated)
-            roster.push_back(Student(id, ln, fn, g));
+            roster[size++] = Student(id, ln, fn, g);
         }
         file.close(); // closes after reading all of the lines
     }
@@ -67,12 +80,12 @@ private:
             return;
         }
         
-        for (const auto& student : roster)
+        for (size_t i = 0; i < size; i++)
         {
-            file << student.getID() << " "
-            << student.getlastName() << " "
-            << student.getfirstName() << " "
-            << student.getgrade() << endl;
+            file << roster[i].getID() << " "
+            << roster[i].getlastName() << " "
+            << roster[i].getfirstName() << " "
+            << roster[i].getgrade() << endl;
         }
         file.close();
     }
@@ -88,7 +101,10 @@ public:
     // add an student object
     void addStudent(string id, string ln, string fn, string g)
     {
-        roster.push_back(Student(id, ln, fn, g));
+        if (size == capacity){
+            resize();
+        }
+        roster[size++] = Student(id, ln, fn, g);
         // and update txt file
         updateFile(); // save changes to file
     }
