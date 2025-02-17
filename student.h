@@ -1,10 +1,4 @@
 //student.h
-
-// 3333, linear, francisco, senior
-//ID, lastName, firstName, grade
-
-//function to include :
-// update: ID, lastName, firstName, grade
 #ifndef STUDENT_H
 #define STUDENT_H
 
@@ -20,6 +14,8 @@ private:
     string grade;
 
 public:
+    //default constructor
+    Student() {}
     Student(string ID, string lastName, string firstName, string grade){
         this-> ID = ID;
         this-> lastName = lastName;

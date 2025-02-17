@@ -8,7 +8,6 @@
 #include <fstream>
 #include <sstream>
 #include <string>
-#include <vector>
 
 using namespace std;
 
@@ -17,10 +16,25 @@ class Roster
 
 private:
     string fileName;
-    vector<Student> roster;
+    size_t capacity = 4;
+    Student* roster = new Student[capacity];
+    size_t size = 0;
+    
+    void resize()
+    {
+        capacity *= 2;
+        Student* newRoster = new Student[capacity];
+        for (size_t i = 0; i < size; i++)
+        {
+            newRoster[i] = roster[i];
+        }
+        delete[] roster;
+        roster = newRoster;
+    }
+
     int findStudent(string id)
     {
-        for (size_t i = 0; i < roster.size(); i++)
+        for (size_t i = 0; i < size; i++)
         {
             if (roster[i].getID() == id)
             {
@@ -31,10 +45,6 @@ private:
         return -1;
     }
 
-    // read txt file into vector of student objects
-    // how to make each line into object??
-    // while loop that loops until no lines left
-    // whitespace seperate each parameter of student object
 
     void readRosterFromFile(string fileName)
     {
@@ -49,10 +59,13 @@ private:
         string line;
         while (getline(file, line))
         {
+            if (size == capacity){
+                resize();
+            }
             stringstream ss(line);     // treats the string 'line' as a stream
             string id, ln, fn, g;      // extracts attributes from line
             ss >> id >> ln >> fn >> g; // splits line into 4 'variables' (space-separated)
-            roster.push_back(Student(id, ln, fn, g));
+            roster[size++] = Student(id, ln, fn, g);
         }
         file.close(); // closes after reading all of the lines
     }
@@ -67,12 +80,12 @@ private:
             return;
         }
         
-        for (const auto& student : roster)
+        for (size_t i = 0; i < size; i++)
         {
-            file << student.getID() << " "
-            << student.getlastName() << " "
-            << student.getfirstName() << " "
-            << student.getgrade() << endl;
+            file << roster[i].getID() << " "
+            << roster[i].getlastName() << " "
+            << roster[i].getfirstName() << " "
+            << roster[i].getgrade() << endl;
         }
         file.close();
     }
@@ -88,28 +101,36 @@ public:
     // add an student object
     void addStudent(string id, string ln, string fn, string g)
     {
-        roster.push_back(Student(id, ln, fn, g));
+        if (size == capacity){
+            resize();
+        }
+        roster[size++] = Student(id, ln, fn, g);
         // and update txt file
         updateFile(); // save changes to file
     }
 
     // drop an object
-    void dropStudent(string idnum)
-    {
-        int index = findStudent(idnum);
-        if (index != -1)
-        {
-            roster.erase(roster.begin() + index);
-            // update txt file
-            updateFile(); 
+    void dropStudent(string idnum){
 
-            cout << "Student with ID " << idnum << " is removed.\n";
-        }
-        else
+        int index = findStudent(idnum);
+        if (index == -1)
         {
-            cout << "Student not found." << endl;
+            cout << "Student not found!" << endl;
+            return;
         }
+
+        // Shift elements left to overwrite the deleted student
+        for (size_t i = index; i < size - 1; i++)
+        {
+            roster[i] = roster[i + 1];
+        }
+
+        size--; // Reduce the number of students
+
+        updateFile(); // Save changes to file
+        cout << "Student with ID " << idnum << " is removed.\n";
     }
+
 
     // display object (find the object, then print it)
     void printStudent(string idnum)
@@ -124,7 +145,71 @@ public:
         }
         else
         {
-            cout << "Student not found" << endl;
+            cout << "Student not found, sorry!" << endl;
+        }
+    }
+    void insertionSort(){
+        //name
+        for(int i = 1; i < size ; i++ ){
+            Student key = roster[i]; //object
+            cout << key.getfirstName();
+            int j = i - 1; //index
+            while(j >= 0 && roster[j].getfirstName() > key.getfirstName()){
+                roster[j+1] = roster[j]; //overwrites the right element with the one to its left
+                j--;
+            }
+            //putting item in hole
+            roster[j+1] = key; 
+        }
+    }
+    void selectionSort(){
+        //id
+        for(size_t i = 0; i < size - 1 ; i++){
+            int currentMin = i;
+            
+            for(int j = i + 1; j < size; j++ ){
+                if (roster[j].getID() < roster[currentMin].getID()){
+                    //update min is smaller elem. is found
+                    currentMin = j;
+                }
+            }
+            //once you exit this loop, it means you have found the smallest elem.
+            //so insert in to correct pos.
+            swap(roster[i], roster[currentMin]); 
+        }
+    }
+    int partition(int low, int high){
+        string pivot = roster[high].getgrade(); //choosing last elem. as pivot
+        int i = low - 1; //i tracks the last swapped pos
+        
+        for (int j = low; j < high; j++){
+            if (roster[j].getgrade() <= pivot){//compares with pivot
+                i++; //moves the boundary of smaller elem.
+                swap(roster[i], roster[j]);
+            }
+        }   
+        swap(roster[i + 1], roster[high]); //puts pivot in correct pos
+        return i + 1; //returns pivot pos
+
+    }
+    void quickSort(int low, int high){
+        //grade
+        if (low < high){
+           int partitionIndex = partition(low, high);
+
+           quickSort(low, partitionIndex - 1);//sort left side
+           quickSort(partitionIndex + 1, high);//sort right side
+        }
+    }
+    void quickSortWrap(){//wrapper function to call in main
+        quickSort(0, size - 1);
+    }
+    void printRoster(){
+        for(int index = 0; index < size; index++){
+            cout << roster[index].getID() << " "
+            << roster[index].getfirstName() << " "
+            << roster[index].getlastName() << " "
+            << roster[index].getgrade() << endl;
         }
     }
 };
