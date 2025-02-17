@@ -16,9 +16,9 @@ class Roster
 
 private:
     string fileName;
-    Student* roster;
-    size_t size;
-    size_t capacity;
+    size_t capacity = 4;
+    Student* roster = new Student[capacity];
+    size_t size = 0;
     
     void resize()
     {
@@ -150,9 +150,10 @@ public:
     }
     void insertionSort(){
         //name
-        for(size_t i = 1; i < size ; i++ ){
+        for(int i = 1; i < size ; i++ ){
             Student key = roster[i]; //object
-            size_t j = i - 1; //index
+            cout << key.getfirstName();
+            int j = i - 1; //index
             while(j >= 0 && roster[j].getfirstName() > key.getfirstName()){
                 roster[j+1] = roster[j]; //overwrites the right element with the one to its left
                 j--;
@@ -202,6 +203,14 @@ public:
     }
     void quickSortWrap(){//wrapper function to call in main
         quickSort(0, size - 1);
+    }
+    void printRoster(){
+        for(int index = 0; index < size; index++){
+            cout << roster[index].getID() << " "
+            << roster[index].getfirstName() << " "
+            << roster[index].getlastName() << " "
+            << roster[index].getgrade() << endl;
+        }
     }
 };
 

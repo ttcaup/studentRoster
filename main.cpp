@@ -9,16 +9,13 @@
 using namespace std;
 
 void studentMenu () {
-    cout << "1.Add Student\n2.Drop Student\n3.List Student\n4.Exit\n";
+    cout << "1.Add Student\n2.Drop Student\n3.List Student\n4.Sort by Name\n5.Sort by ID\n6.Sort by Grade\n7.Exit\n";
 }
 
 int main(){
 
     Roster roster("list.txt");
     //roster.loadFromFile("list.txt");
-
-    roster.addStudent("2525", "Kurian", "Jasmine", "rFeshman");
-    roster.addStudent("1010", "Reader", "Eden", "Junior");
 
     cout << "\nEnter a space between each word, ex: 1234 Doe John Freshman\n\n";
     int choice; //user choice variable 
@@ -48,10 +45,26 @@ int main(){
             cin >> ID;
             roster.printStudent(ID);
         } 
+        else if(choice == 4){
+            //Sort by Name
+            roster.insertionSort();
+            roster.printRoster();
+        } 
+        else if(choice == 5){
+            //sort by id
+            roster.selectionSort();
+            roster.printRoster();
+        } 
+        else if(choice == 6){
+            //sort by grade
+            roster.quickSortWrap();
+            roster.printRoster();
+        } 
+
     }
-        //4 exit menu
-        while (choice != 4);
-            return 0;
+    //7 exit menu
+    while (choice != 7);
+        return 0; 
 }
 
 

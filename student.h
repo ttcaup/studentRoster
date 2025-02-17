@@ -15,7 +15,7 @@ private:
 
 public:
     //default constructor
-    Student();
+    Student() {}
     Student(string ID, string lastName, string firstName, string grade){
         this-> ID = ID;
         this-> lastName = lastName;
